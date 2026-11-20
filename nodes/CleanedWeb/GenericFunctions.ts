@@ -384,7 +384,8 @@ export function extractRunId(body: IDataObject | undefined): string | undefined 
 
 /**
  * Check a final run body before downstream processing (see "Accept the result" in the run
- * reference): `summary.status` completed or bounded, `within_scope_passed` true and, when a
+ * reference): `summary.status` completed or bounded, `within_scope_passed` true, the run
+ * finished (an aborted run is never accepted) and, when a
  * version was expected, `summary.definition_version` equal to it.
  */
 export function assertAccepted(body: IDataObject, expectedVersion?: string): void {
@@ -397,6 +398,9 @@ export function assertAccepted(body: IDataObject, expectedVersion?: string): voi
 		problems.push(`summary.status is "${String(summary.status)}"`);
 	}
 	if (summary.within_scope_passed !== true) problems.push('summary.within_scope_passed is not true');
+	if (run && run.status !== undefined && run.status !== 'finished') {
+		problems.push(`run.status is "${String(run.status)}"`);
+	}
 	if (expectedVersion && summary.definition_version !== expectedVersion) {
 		problems.push('summary.definition_version does not match the expected version');
 	}

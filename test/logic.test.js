@@ -107,6 +107,10 @@ test('assertAccepted follows the documented acceptance rule', () => {
 	);
 	assert.throws(() => gf.assertAccepted({ summary: { status: 'completed', within_scope_passed: false } }), /within_scope_passed/);
 	assert.throws(
+		() => gf.assertAccepted({ summary: { status: 'bounded', within_scope_passed: true }, run: { run_id: 'r', status: 'aborted', stop_reason: 'aborted' } }),
+		/run.status is "aborted"/,
+	);
+	assert.throws(
 		() => gf.assertAccepted({ summary: { status: 'completed', within_scope_passed: true, definition_version: 'x' } }, 'y'),
 		/definition_version/,
 	);
