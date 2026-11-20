@@ -39,9 +39,8 @@
 #
 # ─── TAG CONVENTION ────────────────────────────────────────────────────────────
 #
-# This workflow is DISABLED on purpose while the repository is private and under
-# review: it has no tag trigger, can only be started by hand (workflow_dispatch),
-# and its job is skipped unless the repository variable NPM_PUBLISH_ENABLED is
+# This workflow is DISABLED on purpose until the first release: it has no tag
+# trigger, can only be started by hand (workflow_dispatch), and its job is skipped unless the repository variable NPM_PUBLISH_ENABLED is
 # "true". To enable it after review, set that variable and, to publish on version
 # tags, add the trigger back:
 #   on:

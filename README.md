@@ -6,7 +6,7 @@ CleanedWeb turns public website collections into maintained REST APIs that retur
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
-> Status: private repository, not yet published to npm or submitted to the n8n Creator Portal.
+> Status: pre-release, not yet published to npm or submitted to the n8n Creator Portal.
 
 - [Installation](#installation)
 - [Operations](#operations)
