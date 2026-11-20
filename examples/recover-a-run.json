@@ -1,0 +1,69 @@
+{
+  "name": "CleanedWeb - start a run without waiting, then read its records",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9b4f6a30-5d28-4c7e-a3b9-2d8e0f4a0001",
+      "name": "When clicking Test workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "resource": "run",
+        "operation": "runCatalog",
+        "apiId": "generated_047a8ebb25911ccf62f4a212",
+        "endpointId": "generated_047a8ebb25911ccf62f4a212_search",
+        "input": "{}",
+        "maxItems": 25,
+        "waitForResult": false,
+        "idempotencyKey": "={{ $execution.id }}-{{ $runIndex }}-{{ $itemIndex }}",
+        "options": {}
+      },
+      "id": "9b4f6a30-5d28-4c7e-a3b9-2d8e0f4a0002",
+      "name": "Start run (do not wait)",
+      "type": "n8n-nodes-cleanedweb.cleanedWeb",
+      "typeVersion": 1,
+      "position": [240, 0],
+      "credentials": {
+        "cleanedWebApi": { "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID", "name": "CleanedWeb API" }
+      }
+    },
+    {
+      "parameters": { "amount": 2, "unit": "minutes" },
+      "id": "9b4f6a30-5d28-4c7e-a3b9-2d8e0f4a0003",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [480, 0],
+      "webhookId": "0f0e0d0c-0b0a-4908-8706-050403020100"
+    },
+    {
+      "parameters": {
+        "resource": "run",
+        "operation": "getItems",
+        "runId": "={{ $('Start run (do not wait)').item.json.run_id }}",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "9b4f6a30-5d28-4c7e-a3b9-2d8e0f4a0004",
+      "name": "Get run items",
+      "type": "n8n-nodes-cleanedweb.cleanedWeb",
+      "typeVersion": 1,
+      "position": [720, 0],
+      "credentials": {
+        "cleanedWebApi": { "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID", "name": "CleanedWeb API" }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test workflow": { "main": [[{ "node": "Start run (do not wait)", "type": "main", "index": 0 }]] },
+    "Start run (do not wait)": { "main": [[{ "node": "Wait", "type": "main", "index": 0 }]] },
+    "Wait": { "main": [[{ "node": "Get run items", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": []
+}

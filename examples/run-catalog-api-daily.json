@@ -1,0 +1,60 @@
+{
+  "name": "CleanedWeb - run a catalog API every day and use its records",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "days", "daysInterval": 1, "triggerAtHour": 6 }] }
+      },
+      "id": "5c1e8f20-3a47-4b9d-8e15-1b7c9d3f0001",
+      "name": "Every day",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "resource": "run",
+        "operation": "runCatalog",
+        "apiId": "generated_047a8ebb25911ccf62f4a212",
+        "endpointId": "generated_047a8ebb25911ccf62f4a212_search",
+        "input": "{\n  \"sort\": \"desc_stars\"\n}",
+        "maxItems": 25,
+        "waitForResult": true,
+        "idempotencyKey": "={{ $execution.id }}-{{ $runIndex }}-{{ $itemIndex }}",
+        "options": { "version": 1 }
+      },
+      "id": "5c1e8f20-3a47-4b9d-8e15-1b7c9d3f0002",
+      "name": "Run catalog API",
+      "type": "n8n-nodes-cleanedweb.cleanedWeb",
+      "typeVersion": 1,
+      "position": [240, 0],
+      "credentials": {
+        "cleanedWebApi": { "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID", "name": "CleanedWeb API" }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "a1", "name": "title", "value": "={{ $json.title }}", "type": "string" },
+            { "id": "a2", "name": "url", "value": "={{ $json.url }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5c1e8f20-3a47-4b9d-8e15-1b7c9d3f0003",
+      "name": "Keep the fields you need",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [480, 0]
+    }
+  ],
+  "connections": {
+    "Every day": { "main": [[{ "node": "Run catalog API", "type": "main", "index": 0 }]] },
+    "Run catalog API": { "main": [[{ "node": "Keep the fields you need", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": []
+}

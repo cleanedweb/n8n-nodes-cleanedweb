@@ -1,0 +1,47 @@
+{
+  "name": "CleanedWeb - browse the catalog and read a contract (no API key)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7a9d2c10-1b34-4f0a-9c61-0a5d6b2e0001",
+      "name": "When clicking Test workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "resource": "catalog",
+        "operation": "list",
+        "limit": 3,
+        "filters": { "sort": "name" }
+      },
+      "id": "7a9d2c10-1b34-4f0a-9c61-0a5d6b2e0002",
+      "name": "List APIs",
+      "type": "n8n-nodes-cleanedweb.cleanedWeb",
+      "typeVersion": 1,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "resource": "catalog",
+        "operation": "getContract",
+        "apiId": "={{ $json.api_id }}",
+        "endpointId": "={{ $json.endpoints[0].endpoint_id }}"
+      },
+      "id": "7a9d2c10-1b34-4f0a-9c61-0a5d6b2e0003",
+      "name": "Get API Contract",
+      "type": "n8n-nodes-cleanedweb.cleanedWeb",
+      "typeVersion": 1,
+      "position": [480, 0]
+    }
+  ],
+  "connections": {
+    "When clicking Test workflow": { "main": [[{ "node": "List APIs", "type": "main", "index": 0 }]] },
+    "List APIs": { "main": [[{ "node": "Get API Contract", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": []
+}
