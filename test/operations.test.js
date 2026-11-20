@@ -40,7 +40,7 @@ test('Run Catalog Endpoint builds the documented request and returns one item pe
 	const call = ctx.calls.broker[0];
 	assert.equal(call.type, 'cleanedWebApi');
 	assert.equal(call.method, 'POST');
-	assert.equal(call.url, `https://broker.cleanedweb.com/v1/catalog/public/apis/${API}/endpoints/${EP}/run`);
+	assert.equal(call.url, `https://api.cleanedweb.com/v1/catalog/public/apis/${API}/endpoints/${EP}/run`);
 	assert.equal(call.headers['Idempotency-Key'], KEY);
 	assert.deepEqual(call.body, { input: { sort: 'desc_stars' }, max_items: 25 });
 	assert.equal(call.returnFullResponse, true);
@@ -76,7 +76,7 @@ test('a 202 is read from the catalog result route with the same key, honoring Re
 	// exactly one POST; the rest are GETs of /result with the same key
 	assert.deepEqual(ctx.calls.broker.map((c) => c.method), ['POST', 'GET', 'GET']);
 	for (const call of ctx.calls.broker.slice(1)) {
-		assert.equal(call.url, `https://broker.cleanedweb.com/v1/catalog/public/apis/${API}/endpoints/${EP}/result`);
+		assert.equal(call.url, `https://api.cleanedweb.com/v1/catalog/public/apis/${API}/endpoints/${EP}/result`);
 		assert.equal(call.headers['Idempotency-Key'], KEY);
 		assert.equal(call.body, undefined);
 	}
@@ -237,7 +237,7 @@ test('path segments are encoded', async () => {
 		broker: [fullResponse(200, finalBody([]))],
 	});
 	await ops.startRun(ctx, 0, 'catalog', makeDeps().deps);
-	assert.equal(ctx.calls.broker[0].url, 'https://broker.cleanedweb.com/v1/catalog/public/apis/a%2Fb%20c/endpoints/e%3Fx/run');
+	assert.equal(ctx.calls.broker[0].url, 'https://api.cleanedweb.com/v1/catalog/public/apis/a%2Fb%20c/endpoints/e%3Fx/run');
 });
 
 test('Run Source: expected_version in the body, pending runs read from /v1/runs/{id}/result', async () => {
@@ -260,9 +260,9 @@ test('Run Source: expected_version in the body, pending runs read from /v1/runs/
 	const { deps, state } = makeDeps();
 	const out = await ops.startRun(ctx, 0, 'source', deps);
 	assert.equal(out.length, 1);
-	assert.equal(ctx.calls.broker[0].url, 'https://broker.cleanedweb.com/v1/sources/src_1/run');
+	assert.equal(ctx.calls.broker[0].url, 'https://api.cleanedweb.com/v1/sources/src_1/run');
 	assert.deepEqual(ctx.calls.broker[0].body, { input: {}, max_items: 10, nulls: true, expected_version: version });
-	assert.equal(ctx.calls.broker[1].url, `https://broker.cleanedweb.com/v1/runs/${RUN}/result?nulls=true`);
+	assert.equal(ctx.calls.broker[1].url, `https://api.cleanedweb.com/v1/runs/${RUN}/result?nulls=true`);
 	assert.deepEqual(state.sleeps, [4000]);
 });
 
@@ -279,8 +279,8 @@ test('Get Run and Abort Run use the run routes', async () => {
 	const aborted = await ops.abortRun(ctx, 0);
 	assert.equal(aborted[0].json.abort_requested, true);
 	assert.deepEqual(ctx.calls.broker.map((c) => `${c.method} ${c.url}`), [
-		`GET https://broker.cleanedweb.com/v1/runs/${RUN}`,
-		`POST https://broker.cleanedweb.com/v1/runs/${RUN}/abort`,
+		`GET https://api.cleanedweb.com/v1/runs/${RUN}`,
+		`POST https://api.cleanedweb.com/v1/runs/${RUN}/abort`,
 	]);
 });
 

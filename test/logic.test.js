@@ -80,11 +80,11 @@ test('parseFields trims, drops blanks and duplicates', () => {
 });
 
 test('normalizeOrigin: https only (http for localhost), no path', () => {
-	assert.equal(gf.normalizeOrigin(''), 'https://broker.cleanedweb.com');
-	assert.equal(gf.normalizeOrigin('https://broker.cleanedweb.com/'), 'https://broker.cleanedweb.com');
+	assert.equal(gf.normalizeOrigin(''), 'https://api.cleanedweb.com');
+	assert.equal(gf.normalizeOrigin('https://api.cleanedweb.com/'), 'https://api.cleanedweb.com');
 	assert.equal(gf.normalizeOrigin('http://localhost:8080'), 'http://localhost:8080');
-	assert.throws(() => gf.normalizeOrigin('http://broker.cleanedweb.com'), /https/);
-	assert.throws(() => gf.normalizeOrigin('https://broker.cleanedweb.com/v1'), /path/);
+	assert.throws(() => gf.normalizeOrigin('http://api.cleanedweb.com'), /https/);
+	assert.throws(() => gf.normalizeOrigin('https://api.cleanedweb.com/v1'), /path/);
 	assert.throws(() => gf.normalizeOrigin('not a url'), /not a valid URL/);
 });
 

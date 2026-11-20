@@ -1,5 +1,5 @@
 /** Run origin: runs, results and run routes are served here. Also the credential default. */
-export const DEFAULT_RUN_ORIGIN = 'https://broker.cleanedweb.com';
+export const DEFAULT_RUN_ORIGIN = 'https://api.cleanedweb.com';
 
 /** Anonymous catalog reads (live list and live contracts). */
 export const CATALOG_ORIGIN = 'https://app.cleanedweb.com';

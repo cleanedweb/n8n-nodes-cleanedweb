@@ -147,7 +147,7 @@ export function normalizeOrigin(raw: unknown): string {
 	if (!url) {
 		throw new CleanedWebUsageError(
 			'The run origin in the credential is not a valid URL',
-			'Use https://broker.cleanedweb.com, or the origin your workspace supplies.',
+			'Use https://api.cleanedweb.com, or the origin your workspace supplies.',
 		);
 	}
 	const local = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
@@ -160,7 +160,7 @@ export function normalizeOrigin(raw: unknown): string {
 	if ((url.pathname !== '/' && url.pathname !== '') || url.search || url.hash) {
 		throw new CleanedWebUsageError(
 			'The run origin must not include a path',
-			'Use only the origin, for example https://broker.cleanedweb.com.',
+			'Use only the origin, for example https://api.cleanedweb.com.',
 		);
 	}
 	return url.origin;
@@ -469,7 +469,7 @@ export async function brokerRequest(
 		throw new BrokerError({
 			message: `The run origin answered a redirect (${statusCode}); nothing ran`,
 			description:
-				'The request went to the wrong origin. Use https://broker.cleanedweb.com, or the origin your workspace supplies, in the credential.',
+				'The request went to the wrong origin. Use https://api.cleanedweb.com, or the origin your workspace supplies, in the credential.',
 			statusCode,
 			unsure: false,
 		});

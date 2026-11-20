@@ -47,7 +47,7 @@ test('credential: Bearer auth and a read-only test against GET /v1/runs?limit=1'
 	assert.equal(cred.test.request.method, 'GET');
 	assert.equal(cred.test.request.url, '/v1/runs');
 	assert.deepEqual(cred.test.request.qs, { limit: 1 });
-	assert.match(cred.test.request.baseURL, /broker\.cleanedweb\.com/);
+	assert.match(cred.test.request.baseURL, /api\.cleanedweb\.com/);
 });
 
 test('loadOptions lists the live catalog and an API\'s available endpoints', async () => {

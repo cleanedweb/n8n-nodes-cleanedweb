@@ -49,7 +49,7 @@ The node is usable as a tool by n8n AI agents (`usableAsTool`).
 
 1. Create a CleanedWeb account and an API key with the `run` scope ([authentication](https://cleanedweb.com/docs/authentication/?utm_source=github&utm_medium=n8n-nodes-cleanedweb)). Add `results` only if you also read retained results.
 2. In n8n, create a **CleanedWeb API** credential and paste the key.
-3. Leave **Run Origin** at `https://broker.cleanedweb.com` unless your workspace supplies another origin. The key is sent only to this origin, over https, and the node does not follow redirects.
+3. Leave **Run Origin** at `https://api.cleanedweb.com` unless your workspace supplies another origin. The key is sent only to this origin, over https, and the node does not follow redirects.
 
 The credential test calls `GET /v1/runs?limit=1`, a read-only request that starts nothing and uses no credit.
 

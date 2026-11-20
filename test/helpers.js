@@ -30,7 +30,7 @@ function makeCtx({ params = {}, broker = [], catalog = [], credentials = {}, ite
 		getCurrentNodeParameter: (name) => params[name],
 		getCredentials: async (type) => {
 			if (type !== 'cleanedWebApi') throw new Error(`unknown credential ${type}`);
-			return { apiKey: 'test-key', origin: 'https://broker.cleanedweb.com', ...credentials };
+			return { apiKey: 'test-key', origin: 'https://api.cleanedweb.com', ...credentials };
 		},
 		getExecutionCancelSignal: () => undefined,
 		continueOnFail: () => false,
