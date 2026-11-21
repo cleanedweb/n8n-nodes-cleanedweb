@@ -6,8 +6,6 @@ CleanedWeb turns public website collections into maintained REST APIs that retur
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
-> Status: pre-release, not yet published to npm or submitted to the n8n Creator Portal.
-
 - [Installation](#installation)
 - [Operations](#operations)
 - [Credentials](#credentials)
@@ -22,11 +20,10 @@ CleanedWeb turns public website collections into maintained REST APIs that retur
 
 Follow the [community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) and install `n8n-nodes-cleanedweb`.
 
-Until the package is on npm, build it and install the tarball into your n8n's `~/.n8n/nodes` folder:
+On a self-hosted n8n you can also install it from the command line in your `~/.n8n/nodes` folder:
 
 ```bash
-npm ci && npm run build && npm pack
-cd ~/.n8n/nodes && npm install /path/to/n8n-nodes-cleanedweb-0.1.0.tgz
+cd ~/.n8n/nodes && npm install n8n-nodes-cleanedweb
 ```
 
 Then restart n8n.
