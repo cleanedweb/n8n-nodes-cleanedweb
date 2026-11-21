@@ -65,6 +65,12 @@ on:
         description: 'Type "publish" to confirm publishing to npm'
         required: true
         type: string
+      mode:
+        description: 'publish, or stage (first release: npm holds the upload until an owner approves it with 2FA under Staged Packages)'
+        required: false
+        default: publish
+        type: choice
+        options: [publish, stage]
 
 jobs:
   publish:
@@ -104,6 +110,12 @@ jobs:
         #   .npmrc here before publishing.
         run: |
           [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
-          npm run release
+          if [ "$MODE" = stage ]; then
+            # n8n's prepublishOnly guard only lets a publish through with RELEASE_MODE set.
+            npm run lint && npm run build && RELEASE_MODE=1 npx -y npm@12 stage publish --provenance --access public
+          else
+            npm run release
+          fi
         env:
+          MODE: ${{ inputs.mode }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
