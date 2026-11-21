@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-cleanedweb",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for CleanedWeb: run maintained APIs for public website collections and read their structured records.",
 	"license": "MIT",
 	"homepage": "https://github.com/cleanedweb/n8n-nodes-cleanedweb#readme",

@@ -6,9 +6,16 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-11-20
+## [0.1.1] - 2026-11-21
 
-First version, kept private until reviewed.
+### Changed
+
+- Published from GitHub Actions through npm trusted publishing, with provenance. No code changes.
+- README installs from npm.
+
+## [0.1.0] - 2026-11-21
+
+First release on npm.
 
 ### Added
 
